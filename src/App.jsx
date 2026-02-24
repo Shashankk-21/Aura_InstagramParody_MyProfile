@@ -14,10 +14,11 @@ const App = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
-  const [currentTheme, setCurrentTheme] = useState('purple');
+  const [currentTheme, setCurrentTheme] = useState('crimson');
 
   const themeStyles = {
-    purple: 'bg-gradient-to-b from-[#4a0000] via-[#200000] to-[#000000]',
+    crimson: 'bg-gradient-to-b from-[#4a0000] via-[#200000] to-[#000000]',
+    purple: 'bg-gradient-to-b from-[#2e004a] via-[#1a002b] to-[#000000]',
     gold: 'bg-gradient-to-b from-[#422006] via-[#1a0b00] to-[#000000]',
     oled: 'bg-[#000000]',
   };
@@ -41,7 +42,7 @@ const App = () => {
   };
 
   return (
-    <div className={`${themeStyles[currentTheme]} min-h-screen text-white flex flex-col items-center relative overflow-x-hidden font-sans transition-colors duration-500`}>
+    <div className={`${themeStyles[currentTheme]} min-h-screen w-full text-white flex flex-col items-center relative overflow-x-hidden font-sans transition-colors duration-500`}>
 
       {/* Toast */}
       {toastMessage && (

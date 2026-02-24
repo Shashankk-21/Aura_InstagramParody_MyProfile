@@ -3,7 +3,8 @@ import { BadgeCheck } from 'lucide-react';
 
 const ProfileHeader = ({ profile, onEditProfile, onShareProfile, currentTheme }) => {
   const ringStyles = {
-    purple: 'bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500',
+    crimson: 'bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500',
+    purple: 'bg-gradient-to-tr from-indigo-400 via-purple-500 to-pink-500',
     gold: 'bg-gradient-to-tr from-yellow-300 via-yellow-500 to-yellow-700',
     oled: 'bg-gradient-to-tr from-white to-gray-500',
   };
@@ -34,10 +35,7 @@ const ProfileHeader = ({ profile, onEditProfile, onShareProfile, currentTheme })
             <span className="font-bold text-lg md:text-xl">{profile.stats.events}</span>
             <span className="text-sm text-neutral-400">Events</span>
           </div>
-          <div className="flex flex-col items-center">
-            <span className="font-bold text-lg md:text-xl">{profile.stats.eventsWon}</span>
-            <span className="text-sm text-neutral-400">Events Won</span>
-          </div>
+          {/* Events Won Removed */}
           <div className="flex flex-col items-center">
             <span className="font-bold text-lg md:text-xl">{profile.stats.daysLeft}</span>
             <span className="text-sm text-neutral-400">Days Left</span>
@@ -46,15 +44,15 @@ const ProfileHeader = ({ profile, onEditProfile, onShareProfile, currentTheme })
       </div>
 
       {/* Bio Section */}
-      <div className="mb-4">
-        <div className="flex items-center gap-1">
-          <span className="font-bold text-white text-base">{profile.fullName}</span>
-          <BadgeCheck size={16} className="text-blue-500" fill="currentColor" stroke="black" />
+      <div className="mb-4 pl-1">
+        <div className="flex items-center gap-1.5 mb-1">
+          <span className="font-bold text-white text-2xl">{profile.fullName}</span>
+          <BadgeCheck size={20} className="text-blue-500" fill="currentColor" stroke="black" />
         </div>
 
-        <div className="text-neutral-500 text-sm mb-0.5">{profile.auraID}</div>
-        <div className="text-neutral-300 text-sm mb-0.5">{profile.college}</div>
-        <div className="text-zinc-400 text-sm mb-2">{profile.email}</div>
+        <div className="text-neutral-500 text-sm mb-1">{profile.auraID}</div>
+        <div className="text-neutral-300 text-sm mb-1">{profile.college}</div>
+        <div className="text-zinc-400 text-sm mb-3">{profile.email}</div>
         <div className="text-white whitespace-pre-line text-sm">{profile.bio}</div>
       </div>
 

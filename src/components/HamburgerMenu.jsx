@@ -32,13 +32,15 @@ const HamburgerMenu = ({ isOpen, onClose, currentTheme, setCurrentTheme }) => {
   };
 
   const handleThemeSwitch = () => {
-    const cycle = { purple: 'gold', gold: 'oled', oled: 'purple' };
-    setCurrentTheme(cycle[currentTheme]);
+    // Cycle: Crimson -> Purple -> Gold -> OLED -> Crimson
+    const cycle = { crimson: 'purple', purple: 'gold', gold: 'oled', oled: 'crimson' };
+    setCurrentTheme(cycle[currentTheme] || 'crimson');
   };
 
   const getThemeColorClass = () => {
     switch (currentTheme) {
-      case 'purple': return 'bg-[#4a0000]';
+      case 'crimson': return 'bg-red-900';
+      case 'purple': return 'bg-purple-900';
       case 'gold': return 'bg-yellow-600';
       case 'oled': return 'bg-black border border-zinc-700';
       default: return 'bg-white';
