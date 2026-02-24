@@ -14,6 +14,13 @@ const App = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
+  const [currentTheme, setCurrentTheme] = useState('purple');
+
+  const themeStyles = {
+    purple: 'bg-gradient-to-b from-[#4a0000] via-[#200000] to-[#000000]',
+    gold: 'bg-gradient-to-b from-[#422006] via-[#1a0b00] to-[#000000]',
+    oled: 'bg-[#000000]',
+  };
 
   const showToast = (msg) => {
     // Clear previous toast if any to restart animation
@@ -25,8 +32,8 @@ const App = () => {
     showToast("Edit mode locked for Demo.");
   };
 
-  const handleShareProfile = () => {
-    showToast("Profile link copied to clipboard.");
+  const handleShareProfile = (msg) => {
+    showToast(msg || "Profile link copied to clipboard.");
   };
 
   const handleHighlightClick = (item) => {
@@ -34,7 +41,7 @@ const App = () => {
   };
 
   return (
-    <div className="bg-black min-h-screen text-white flex flex-col items-center relative overflow-x-hidden font-sans">
+    <div className={`${themeStyles[currentTheme]} min-h-screen text-white flex flex-col items-center relative overflow-x-hidden font-sans transition-colors duration-500`}>
 
       {/* Toast */}
       {toastMessage && (
@@ -51,6 +58,7 @@ const App = () => {
           profile={userProfile}
           onEditProfile={handleEditProfile}
           onShareProfile={handleShareProfile}
+          currentTheme={currentTheme}
         />
 
         <StoryHighlights
@@ -88,6 +96,8 @@ const App = () => {
       <HamburgerMenu
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
+        currentTheme={currentTheme}
+        setCurrentTheme={setCurrentTheme}
       />
 
     </div>
