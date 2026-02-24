@@ -3,17 +3,16 @@ import event2 from '../assets/event2.png';
 import event3 from '../assets/event3.png';
 
 export const userProfile = {
-  username: "shashank.official",
-  fullName: "Shashank Babu",
+  username: "Darshan_official",
+  fullName: "Darshan",
   auraID: "#AUR-2026-X99",
   college: "GIT Belagavi",
   paymentStatus: true, // PAID
-  profilePic: "https://ui-avatars.com/api/?name=Shashank+Babu&background=random", // Placeholder
+  profilePic: "https://ui-avatars.com/api/?name=Aura&background=random", // Placeholder
   bio: "Trust the process 💫",
   stats: {
     events: 3,
-    auraPoints: 1250,
-    following: 42
+    aura: 2026,
   }
 };
 
