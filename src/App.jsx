@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import ProfileHeader from './components/ProfileHeader';
 import StoryHighlights from './components/StoryHighlights';
@@ -7,9 +7,18 @@ import ContentGrid from './components/ContentGrid';
 import PostModal from './components/PostModal';
 import HamburgerMenu from './components/HamburgerMenu';
 import Toast from './components/Toast';
-import { userProfile, highlights, registeredEvents } from './data/mockData';
+import Login from './components/Login';
+import { Loader2 } from 'lucide-react';
+import { getUserProfile, getHighlights, getRegisteredEvents, loginUser, logoutUser } from './services/api';
 
 const App = () => {
+  // Backend Readiness State
+  const [user, setUser] = useState(null);
+  const [highlights, setHighlights] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // UI State
   const [activeTab, setActiveTab] = useState('events');
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,9 +33,49 @@ const App = () => {
   };
 
   const showToast = (msg) => {
-    // Clear previous toast if any to restart animation
     setToastMessage(null);
     setTimeout(() => setToastMessage(msg), 10);
+  };
+
+  const handleLogin = async () => {
+    setIsLoading(true);
+    try {
+      // Simulate Backend Login
+      const loginResponse = await loginUser();
+
+      if (loginResponse.success) {
+        // Parallel Data Fetching
+        const [highlightsData, eventsData] = await Promise.all([
+          getHighlights(),
+          getRegisteredEvents()
+        ]);
+
+        setUser(loginResponse.user);
+        setHighlights(highlightsData);
+        setEvents(eventsData);
+      }
+    } catch (error) {
+      console.error("Backend Error:", error);
+      showToast("Failed to connect to server.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    setIsLoading(true);
+    try {
+      await logoutUser();
+      setUser(null);
+      setHighlights([]);
+      setEvents([]);
+      setIsMenuOpen(false);
+    } catch (error) {
+      console.error("Logout Error:", error);
+      showToast("Logout failed.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleEditProfile = () => {
@@ -41,6 +90,22 @@ const App = () => {
     showToast(`Viewing Highlight: ${item.title}`);
   };
 
+  // 1. Loading State
+  if (isLoading) {
+    return (
+      <div className="min-h-screen w-full bg-black flex flex-col items-center justify-center text-white font-sans">
+        <Loader2 className="animate-spin mb-4 text-purple-500" size={48} />
+        <p className="text-zinc-400 animate-pulse text-sm">Connecting to Aura Backend...</p>
+      </div>
+    );
+  }
+
+  // 2. Login State (Logged Out)
+  if (!user) {
+    return <Login onLogin={handleLogin} />;
+  }
+
+  // 3. Authenticated App State
   return (
     <div className={`${themeStyles[currentTheme]} min-h-screen w-full text-white flex flex-col items-center relative overflow-x-hidden font-sans transition-colors duration-500`}>
 
@@ -56,7 +121,7 @@ const App = () => {
       <main className="w-full max-w-[935px] mx-auto pb-20">
 
         <ProfileHeader
-          profile={userProfile}
+          profile={user}
           onEditProfile={handleEditProfile}
           onShareProfile={handleShareProfile}
           currentTheme={currentTheme}
@@ -71,7 +136,7 @@ const App = () => {
 
         {activeTab === 'events' ? (
           <ContentGrid
-            events={registeredEvents}
+            events={events}
             onEventClick={setSelectedEvent}
           />
         ) : (
@@ -99,6 +164,7 @@ const App = () => {
         onClose={() => setIsMenuOpen(false)}
         currentTheme={currentTheme}
         setCurrentTheme={setCurrentTheme}
+        onLogout={handleLogout}
       />
 
     </div>
