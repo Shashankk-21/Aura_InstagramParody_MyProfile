@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { Settings, Activity, Bookmark, LogOut, Moon } from 'lucide-react';
 
-const HamburgerMenu = ({ isOpen, onClose, currentTheme, setCurrentTheme }) => {
+const HamburgerMenu = ({ isOpen, onClose, currentTheme, setCurrentTheme, onLogout }) => {
   const sheetRef = useRef(null);
   const overlayRef = useRef(null);
 
@@ -61,7 +61,13 @@ const HamburgerMenu = ({ isOpen, onClose, currentTheme, setCurrentTheme }) => {
         <span className={`w-3 h-3 rounded-full ml-2 inline-block ${getThemeColorClass()}`}></span>
       )
     },
-    { icon: <LogOut size={24} className="text-red-500" />, label: "Log Out", sub: "", textClass: "text-red-500" },
+    {
+      icon: <LogOut size={24} className="text-red-500" />,
+      label: "Log Out",
+      sub: "",
+      textClass: "text-red-500",
+      onClick: onLogout
+    },
   ];
 
   return (

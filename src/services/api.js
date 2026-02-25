@@ -2,14 +2,15 @@ import event1 from '../assets/event1.png';
 import event2 from '../assets/event2.png';
 import event3 from '../assets/event3.png';
 
-export const userProfile = {
+// Mock Data
+const userProfile = {
   username: "Darshan_official",
   fullName: "Darshan",
   auraID: "#AUR-2026-X99",
   college: "GIT Belagavi",
   email: "darshan.design@aura.inc",
-  // paymentStatus removed
-  profilePic: "https://ui-avatars.com/api/?name=Aura&background=random", // Placeholder
+  // PaymentStatus removed
+  profilePic: "https://ui-avatars.com/api/?name=Aura&background=random", // Placeholder fetched from backend
   bio: "Trust the process 💫",
   stats: {
     events: 3,
@@ -18,13 +19,13 @@ export const userProfile = {
   }
 };
 
-export const highlights = [
+const highlights = [
   { id: 1, title: "Aura '23", imgUrl: "https://placehold.co/150x150/1a1a1a/FFF?text=23" },
   { id: 2, title: "Aura '24", imgUrl: "https://placehold.co/150x150/1a1a1a/FFF?text=24" },
   { id: 3, title: "Aura '25", imgUrl: "https://placehold.co/150x150/1a1a1a/FFF?text=25" }
 ];
 
-export const registeredEvents = [
+const registeredEvents = [
   {
     id: 1,
     posterUrl: event1,
@@ -53,3 +54,47 @@ export const registeredEvents = [
     rules: "1. Track duration: 3-4 mins. 2. Props must be cleared by the participant."
   }
 ];
+
+const DELAY = 800; // Simulate network latency
+
+// API Functions
+export const getUserProfile = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(userProfile);
+    }, DELAY);
+  });
+};
+
+export const getHighlights = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(highlights);
+    }, DELAY);
+  });
+};
+
+export const getRegisteredEvents = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(registeredEvents);
+    }, DELAY);
+  });
+};
+
+export const loginUser = (username, password) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Simulate successful login
+      resolve({ success: true, user: userProfile });
+    }, DELAY);
+  });
+};
+
+export const logoutUser = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true });
+    }, DELAY / 2);
+  });
+};
