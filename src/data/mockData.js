@@ -7,12 +7,14 @@ export const userProfile = {
   fullName: "Darshan",
   auraID: "#AUR-2026-X99",
   college: "GIT Belagavi",
-  paymentStatus: true, // PAID
+  email: "darshan.design@aura.inc",
+  // paymentStatus removed
   profilePic: "https://ui-avatars.com/api/?name=Aura&background=random", // Placeholder
   bio: "Trust the process 💫",
   stats: {
     events: 3,
-    aura: 2026,
+    eventsWon: 3,
+    daysLeft: 14,
   }
 };
 
